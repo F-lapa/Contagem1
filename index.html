@@ -17,7 +17,7 @@
       color: #fff;
       display: flex;
       justify-content: center;
-      align-items: flex-start; /* Alteração para alinhar ao topo */
+      align-items: flex-start;
       height: 100vh;
       margin: 0;
     }
@@ -31,7 +31,7 @@
       text-align: center;
       overflow: hidden;
       position: relative;
-      margin-top: 20px; /* Espaçamento reduzido do topo */
+      margin-top: 20px;
     }
     h1 {
       font-size: 28px;
@@ -127,7 +127,8 @@
       font-size: 14px;
       font-weight: 500;
     }
-    /* Caixa de Diálogo */
+
+    /* Caixa de Diálogo Modernizada */
     .dialog-overlay {
       display: none;
       position: fixed;
@@ -139,12 +140,15 @@
       justify-content: center;
       align-items: center;
       z-index: 1000;
+      opacity: 0; /* Inicialmente invisível */
+      transition: opacity 0.3s ease; /* Transição suave */
     }
     .dialog-overlay.show {
       display: flex;
+      opacity: 1; /* Visível */
     }
     .dialog-container {
-      background: #fff;
+      background: #ffffff;
       color: #333;
       padding: 32px;
       border-radius: 16px;
@@ -152,6 +156,13 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       width: 90%;
       max-width: 450px;
+      transform: scale(0.9); /* Inicialmente menor */
+      opacity: 0; /* Inicialmente invisível */
+      transition: transform 0.3s ease, opacity 0.3s ease; /* Transição suave */
+    }
+    .dialog-overlay.show .dialog-container {
+      transform: scale(1); /* Escala normal */
+      opacity: 1; /* Totalmente visível */
     }
     .dialog-buttons {
       display: flex;
@@ -162,10 +173,32 @@
     .dialog-confirm {
       background: linear-gradient(135deg, #007bff, #0056b3);
       color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .dialog-confirm:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
     .dialog-cancel {
       background: linear-gradient(135deg, #dc3545, #c82333);
       color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .dialog-cancel:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
@@ -301,7 +334,6 @@
       function showDialog(message, onConfirm) {
         dialogMessage.textContent = message;
         dialogOverlay.classList.add('show');
-        dialogOverlay.classList.remove('hide');
         confirmAction = onConfirm;
       }
 
@@ -315,10 +347,10 @@
       });
 
       function hideDialog() {
-        dialogOverlay.classList.add('hide');
+        dialogOverlay.classList.remove('show');
         setTimeout(function () {
-          dialogOverlay.classList.remove('show');
-        }, 500); // Tempo da animação (mesmo valor do CSS)
+          dialogOverlay.style.display = 'none'; // Oculta completamente após a transição
+        }, 300); // Tempo da animação (mesmo valor do CSS)
       }
 
       // Adiciona o efeito de ripple aos botões
