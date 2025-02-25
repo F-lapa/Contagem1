@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contagem de Cargas Inspecionadas</title>
+  <style>
+    /* Estilos Gerais */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 500px;
+      padding: 32px;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 24px;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    form {
+      margin-bottom: 24px;
+    }
+    label {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: block;
+      color: #555;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      text-align: center;
+      font-weight: 600;
+      color: #333;
+    }
+    input[type="text"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      outline: none;
+    }
+    .btn-container {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .btn-ok {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+    }
+    .btn-correct {
+      background: linear-gradient(135deg, #ffc107, #e0a800);
+      color: black;
+    }
+    .btn-clear {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white;
+    }
+    .result {
+      background: #007bff;
+      color: #fff;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .history {
+      text-align: left;
+      margin-top: 16px;
+    }
+    .history-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .history-item {
+      background: #333;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 24px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    /* Caixa de Diálogo */
+    .dialog-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .dialog-overlay.show {
+      display: flex;
+    }
+    .dialog-container {
+      background: #fff;
+      color: #333;
+      padding: 32px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 450px;
+    }
+    .dialog-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .dialog-confirm {
+      background: linear-gradient(135deg, #007bff, #0056b3);
+      color: white;
+    }
+    .dialog-cancel {
+      background: linear-gradient(135deg, #dc3545, #c82333);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Contagem de Cargas Inspecionadas</h1>
+    <form id="inspection-form">
+      <label for="quantity">Número de Cargas Inspecionadas:</label>
+      <input type="text" id="quantity" name="quantity" required autocomplete="off" inputmode="numeric" pattern="\d*">
+      <div class="btn-container">
+        <button class="btn-ok" type="submit">OK</button>
+        <button class="btn-correct" id="correct-button" type="button">Corrigir</button>
+        <button class="btn-clear" id="clear-button" type="button">Limpar</button>
+      </div>
+    </form>
+    <div class="result">
+      <strong>Total de Cargas Inspecionadas:</strong> <span id="total-inspected">0</span>
+    </div>
+    <div class="history">
+      <strong>Histórico:</strong>
+      <ul id="history-list" class="history-list"></ul>
+    </div>
+  </div>
+  <!-- Caixa de Diálogo -->
+  <div class="dialog-overlay" id="dialog-overlay">
+    <div class="dialog-container">
+      <p id="dialog-message"></p>
+      <div class="dialog-buttons">
+        <button class="dialog-confirm" id="dialog-confirm">Confirmar</button>
+        <button class="dialog-cancel" id="dialog-cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById('inspection-form');
+      const totalInspectedSpan = document.getElementById('total-inspected');
+      const historyList = document.getElementById('history-list');
+      const correctButton = document.getElementById('correct-button');
+      const clearButton = document.getElementById('clear-button');
+      const dialogOverlay = document.getElementById('dialog-overlay');
+      const dialogMessage = document.getElementById('dialog-message');
+      const dialogConfirm = document.getElementById('dialog-confirm');
+      const dialogCancel = document.getElementById('dialog-cancel');
+      let totalInspected = 0;
+      let history = [];
+      let confirmAction = null;
+      const MAX_DIGITS = 20;
+
+      // Carrega os dados do localStorage
+      if (localStorage.getItem('totalInspected')) {
+        totalInspected = parseInt(localStorage.getItem('totalInspected'), 10);
+        totalInspectedSpan.textContent = formatNumber(totalInspected);
+      }
+      if (localStorage.getItem('history')) {
+        history = JSON.parse(localStorage.getItem('history'));
+        updateHistory();
+      }
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const quantityInput = document.getElementById('quantity');
+        let quantity = parseInt(quantityInput.value.replace(/\./g, ''), 10);
+        if (!isNaN(quantity) && quantity >= 0) {
+          const newTotal = totalInspected + quantity;
+          if (newTotal.toString().length > MAX_DIGITS) {
+            alert(`A soma total não pode exceder ${MAX_DIGITS} algarismos.`);
+          } else {
+            totalInspected = newTotal;
+            totalInspectedSpan.textContent = formatNumber(totalInspected);
+            quantityInput.value = '';
+            // Adiciona o número ao histórico
+            history.push(quantity);
+            updateHistory();
+            saveData();
+          }
+        } else {
+          alert("Por favor, insira um número válido de cargas inspecionadas.");
+        }
+      });
+
+      correctButton.addEventListener('click', function () {
+        if (history.length > 0) {
+          showDialog("Você tem certeza que deseja corrigir o último valor inserido?", function () {
+            const lastQuantity = history.pop();
+            totalInspected -= lastQuantity;
+            totalInspectedSpan.textContent = formatNumber(totalInspected);
+            updateHistory();
+            saveData();
+          });
+        }
+      });
+
+      clearButton.addEventListener('click', function () {
+        showDialog("Você tem certeza que deseja limpar o total e o histórico?", function () {
+          totalInspected = 0;
+          history = [];
+          totalInspectedSpan.textContent = formatNumber(totalInspected);
+          updateHistory();
+          saveData();
+        });
+      });
+
+      const quantityInput = document.getElementById('quantity');
+      quantityInput.addEventListener('input', function () {
+        let value = this.value.replace(/[^0-9]/g, '');
+        if (value.length > MAX_DIGITS) {
+          value = value.slice(0, MAX_DIGITS); // Limita o número de dígitos
+        }
+        this.value = formatNumber(value);
+      });
+
+      function formatNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+
+      function updateHistory() {
+        historyList.innerHTML = '';
+        history.forEach(function (quantity, index) {
+          const listItem = document.createElement('li');
+          listItem.textContent = formatNumber(quantity);
+          listItem.className = 'history-item';
+          listItem.setAttribute('data-index', index);
+          historyList.appendChild(listItem);
+        });
+      }
+
+      function saveData() {
+        localStorage.setItem('totalInspected', totalInspected);
+        localStorage.setItem('history', JSON.stringify(history));
+      }
+
+      function showDialog(message, onConfirm) {
+        dialogMessage.textContent = message;
+        dialogOverlay.classList.add('show');
+        dialogOverlay.classList.remove('hide');
+        confirmAction = onConfirm;
+      }
+
+      dialogConfirm.addEventListener('click', function () {
+        if (confirmAction) confirmAction();
+        hideDialog();
+      });
+
+      dialogCancel.addEventListener('click', function () {
+        hideDialog();
+      });
+
+      function hideDialog() {
+        dialogOverlay.classList.add('hide');
+        setTimeout(function () {
+          dialogOverlay.classList.remove('show');
+        }, 500); // Tempo da animação (mesmo valor do CSS)
+      }
+
+      // Adiciona o efeito de ripple aos botões
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function (e) {
+          const rect = button.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          const size = Math.max(rect.width, rect.height);
+          const x = e.clientX - rect.left - size / 2;
+          const y = e.clientY - rect.top - size / 2;
+          ripple.style.width = ripple.style.height = `${size}px`;
+          ripple.style.left = `${x}px`;
+          ripple.style.top = `${y}px`;
+          ripple.classList.add('ripple');
+          button.appendChild(ripple);
+          setTimeout(() => {
+            ripple.remove();
+          }, 600);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
