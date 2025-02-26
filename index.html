@@ -12,123 +12,124 @@
       box-sizing: border-box;
     }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1e90ff, #00b4d8);
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 20px;
     }
     .container {
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
       width: 100%;
-      max-width: 500px;
-      padding: 32px;
+      max-width: 600px;
+      padding: 40px;
       text-align: center;
-      overflow: hidden;
       position: relative;
       margin-top: 20px;
     }
     h1 {
-      font-size: 28px;
-      margin-bottom: 24px;
-      color: #333;
+      font-size: 30px;
+      margin-bottom: 30px;
+      color: #1e90ff;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
     form {
-      margin-bottom: 24px;
+      margin-bottom: 30px;
     }
     label {
       font-size: 18px;
-      font-weight: 600;
+      font-weight: 500;
       margin-bottom: 12px;
       display: block;
-      color: #555;
+      color: #2c3e50;
     }
     input[type="text"] {
       width: 100%;
-      padding: 14px;
+      padding: 15px;
       font-size: 18px;
-      border: 2px solid #ddd;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      border: 2px solid #1e90ff;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
       text-align: center;
-      font-weight: 600;
-      color: #333;
+      color: #2c3e50;
+      background: #f0f8ff;
     }
     input[type="text"]:focus {
-      border-color: #007bff;
-      box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+      border-color: #00b4d8;
+      box-shadow: 0 0 12px rgba(0, 180, 216, 0.4);
       outline: none;
     }
     .btn-container {
       display: flex;
-      gap: 12px;
+      gap: 20px;
       justify-content: center;
     }
     button {
-      padding: 12px 24px;
+      padding: 12px 30px;
       font-size: 16px;
       font-weight: 600;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     button:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
     .btn-ok {
-      background: linear-gradient(135deg, #007bff, #0056b3);
+      background: linear-gradient(135deg, #1e90ff, #00b4d8);
       color: white;
     }
     .btn-correct {
-      background: linear-gradient(135deg, #ffc107, #e0a800);
-      color: black;
+      background: linear-gradient(135deg, #ffca28, #ff9800);
+      color: #fff;
     }
     .btn-clear {
-      background: linear-gradient(135deg, #dc3545, #c82333);
+      background: linear-gradient(135deg, #ff5252, #d32f2f);
       color: white;
     }
     .result {
-      background: #007bff;
+      background: linear-gradient(135deg, #1e90ff, #00b4d8);
       color: #fff;
-      padding: 16px;
-      border-radius: 12px;
+      padding: 20px;
+      border-radius: 10px;
       font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-weight: 600;
+      margin-bottom: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
     .history {
       text-align: left;
-      margin-top: 16px;
+      margin-top: 20px;
     }
     .history-list {
       list-style: none;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 12px;
     }
     .history-item {
-      background: #333;
+      background: #00b4d8;
       color: #fff;
-      padding: 8px 16px;
-      border-radius: 24px;
+      padding: 10px 20px;
+      border-radius: 25px;
       font-size: 14px;
       font-weight: 500;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     }
 
-    /* Caixa de Diálogo Modernizada */
+    /* Caixa de Diálogo */
     .dialog-overlay {
       display: none;
       position: fixed;
@@ -136,69 +137,69 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.65);
       justify-content: center;
       align-items: center;
       z-index: 1000;
-      opacity: 0; /* Inicialmente invisível */
-      transition: opacity 0.3s ease; /* Transição suave */
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
     .dialog-overlay.show {
       display: flex;
-      opacity: 1; /* Visível */
+      opacity: 1;
     }
     .dialog-container {
-      background: #ffffff;
-      color: #333;
-      padding: 32px;
-      border-radius: 16px;
+      background: #fff;
+      color: #2c3e50;
+      padding: 35px;
+      border-radius: 15px;
       text-align: center;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
       width: 90%;
       max-width: 450px;
-      transform: scale(0.9); /* Inicialmente menor */
-      opacity: 0; /* Inicialmente invisível */
-      transition: transform 0.3s ease, opacity 0.3s ease; /* Transição suave */
+      transform: scale(0.9);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
     }
     .dialog-overlay.show .dialog-container {
-      transform: scale(1); /* Escala normal */
-      opacity: 1; /* Totalmente visível */
+      transform: scale(1);
+      opacity: 1;
     }
     .dialog-buttons {
       display: flex;
-      gap: 12px;
+      gap: 20px;
       justify-content: center;
-      margin-top: 24px;
+      margin-top: 30px;
     }
     .dialog-confirm {
-      background: linear-gradient(135deg, #007bff, #0056b3);
+      background: linear-gradient(135deg, #1e90ff, #00b4d8);
       color: white;
-      padding: 12px 24px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
     }
     .dialog-confirm:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
     .dialog-cancel {
-      background: linear-gradient(135deg, #dc3545, #c82333);
+      background: linear-gradient(135deg, #ff5252, #d32f2f);
       color: white;
-      padding: 12px 24px;
+      padding: 12px 25px;
       border: none;
-      border-radius: 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
       font-weight: 600;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      transition: all 0.3s ease;
     }
     .dialog-cancel:hover {
       transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
@@ -207,7 +208,7 @@
     <h1>Contagem de Cargas Inspecionadas</h1>
     <form id="inspection-form">
       <label for="quantity">Número de Cargas Inspecionadas:</label>
-      <input type="text" id="quantity" name="quantity" required autocomplete="off" inputmode="numeric" pattern="\d*">
+      <input type="text" id="quantity" name="quantity" required autocomplete="off" inputmode="numeric">
       <div class="btn-container">
         <button class="btn-ok" type="submit">OK</button>
         <button class="btn-correct" id="correct-button" type="button">Corrigir</button>
@@ -243,132 +244,119 @@
       const dialogMessage = document.getElementById('dialog-message');
       const dialogConfirm = document.getElementById('dialog-confirm');
       const dialogCancel = document.getElementById('dialog-cancel');
+      const quantityInput = document.getElementById('quantity');
       let totalInspected = 0;
       let history = [];
       let confirmAction = null;
-      const MAX_DIGITS = 20;
 
       // Carrega os dados do localStorage
       if (localStorage.getItem('totalInspected')) {
         totalInspected = parseInt(localStorage.getItem('totalInspected'), 10);
-        totalInspectedSpan.textContent = formatNumber(totalInspected);
+        totalInspectedSpan.textContent = totalInspected.toLocaleString('pt-BR');
       }
       if (localStorage.getItem('history')) {
         history = JSON.parse(localStorage.getItem('history'));
         updateHistory();
       }
 
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const quantityInput = document.getElementById('quantity');
-        let quantity = parseInt(quantityInput.value.replace(/\./g, ''), 10);
-        if (!isNaN(quantity) && quantity >= 0) {
-          const newTotal = totalInspected + quantity;
-          if (newTotal.toString().length > MAX_DIGITS) {
-            alert(`A soma total não pode exceder ${MAX_DIGITS} algarismos.`);
-          } else {
-            totalInspected = newTotal;
-            totalInspectedSpan.textContent = formatNumber(totalInspected);
-            quantityInput.value = '';
-            // Adiciona o número ao histórico
-            history.push(quantity);
-            updateHistory();
-            saveData();
-          }
-        } else {
-          alert("Por favor, insira um número válido de cargas inspecionadas.");
-        }
-      });
+      // Função para formatar número com pontos
+      function formatNumber(value) {
+        const cleaned = value.replace(/\D/g, ''); // Remove tudo que não é número
+        return cleaned.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Adiciona pontos a cada 3 dígitos
+      }
 
-      correctButton.addEventListener('click', function () {
-        if (history.length > 0) {
-          showDialog("Você tem certeza que deseja corrigir o último valor inserido?", function () {
-            const lastQuantity = history.pop();
-            totalInspected -= lastQuantity;
-            totalInspectedSpan.textContent = formatNumber(totalInspected);
-            updateHistory();
-            saveData();
-          });
-        }
-      });
-
-      clearButton.addEventListener('click', function () {
-        showDialog("Você tem certeza que deseja limpar o total e o histórico?", function () {
-          totalInspected = 0;
-          history = [];
-          totalInspectedSpan.textContent = formatNumber(totalInspected);
-          updateHistory();
-          saveData();
-        });
-      });
-
-      const quantityInput = document.getElementById('quantity');
+      // Evento para formatar o input em tempo real
       quantityInput.addEventListener('input', function () {
-        let value = this.value.replace(/[^0-9]/g, '');
-        if (value.length > MAX_DIGITS) {
-          value = value.slice(0, MAX_DIGITS); // Limita o número de dígitos
-        }
-        this.value = formatNumber(value);
+        this.value = formatNumber(this.value);
       });
 
-      function formatNumber(number) {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-      }
-
-      function updateHistory() {
-        historyList.innerHTML = '';
-        history.forEach(function (quantity, index) {
-          const listItem = document.createElement('li');
-          listItem.textContent = formatNumber(quantity);
-          listItem.className = 'history-item';
-          listItem.setAttribute('data-index', index);
-          historyList.appendChild(listItem);
-        });
-      }
-
+      // Função para salvar os dados no localStorage
       function saveData() {
         localStorage.setItem('totalInspected', totalInspected);
         localStorage.setItem('history', JSON.stringify(history));
       }
 
+      // Função para formatar o histórico
+      function updateHistory() {
+        historyList.innerHTML = '';
+        history.forEach(quantity => {
+          const item = document.createElement('li');
+          item.className = 'history-item';
+          item.textContent = quantity.toLocaleString('pt-BR');
+          historyList.appendChild(item);
+        });
+      }
+
+      // Adiciona um novo valor ao total
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const rawValue = quantityInput.value || '0'; // Garante que não seja undefined
+        const quantity = parseInt(rawValue.replace(/\./g, ''), 10); // Remove pontos antes de parsear
+
+        if (!isNaN(quantity) && quantity >= 0) {
+          totalInspected += quantity;
+          totalInspectedSpan.textContent = totalInspected.toLocaleString('pt-BR');
+          history.push(quantity);
+          updateHistory();
+          saveData();
+          quantityInput.value = '';
+        } else {
+          alert("Por favor, insira um número válido.");
+        }
+      });
+
+      // Exibe a caixa de diálogo
       function showDialog(message, onConfirm) {
         dialogMessage.textContent = message;
-        dialogOverlay.classList.add('show');
+        dialogOverlay.style.display = 'flex';
+        setTimeout(() => {
+          dialogOverlay.classList.add('show');
+        }, 10);
         confirmAction = onConfirm;
       }
 
+      // Esconde a caixa de diálogo
+      function hideDialog() {
+        dialogOverlay.classList.remove('show');
+        setTimeout(() => {
+          dialogOverlay.style.display = 'none';
+        }, 300);
+      }
+
+      // Botão Confirmar na caixa de diálogo
       dialogConfirm.addEventListener('click', function () {
         if (confirmAction) confirmAction();
         hideDialog();
       });
 
+      // Botão Cancelar na caixa de diálogo
       dialogCancel.addEventListener('click', function () {
         hideDialog();
       });
 
-      function hideDialog() {
-        dialogOverlay.classList.remove('show');
-        setTimeout(function () {
-          dialogOverlay.style.display = 'none'; // Oculta completamente após a transição
-        }, 300); // Tempo da animação (mesmo valor do CSS)
-      }
+      // Corrige o último valor inserido
+      correctButton.addEventListener('click', function () {
+        if (history.length > 0) {
+          showDialog("Você tem certeza que deseja corrigir o último valor inserido?", function () {
+            const lastQuantity = history.pop();
+            totalInspected -= lastQuantity;
+            totalInspectedSpan.textContent = totalInspected.toLocaleString('pt-BR');
+            updateHistory();
+            saveData();
+          });
+        } else {
+          alert("Não há valores no histórico para corrigir.");
+        }
+      });
 
-      // Adiciona o efeito de ripple aos botões
-      document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', function (e) {
-          const rect = button.getBoundingClientRect();
-          const ripple = document.createElement('span');
-          const size = Math.max(rect.width, rect.height);
-          const x = e.clientX - rect.left - size / 2;
-          const y = e.clientY - rect.top - size / 2;
-          ripple.style.width = ripple.style.height = `${size}px`;
-          ripple.style.left = `${x}px`;
-          ripple.style.top = `${y}px`;
-          ripple.classList.add('ripple');
-          button.appendChild(ripple);
-          setTimeout(() => {
-            ripple.remove();
-          }, 600);
+      // Limpa o total e o histórico
+      clearButton.addEventListener('click', function () {
+        showDialog("Você tem certeza que deseja limpar o total e o histórico?", function () {
+          totalInspected = 0;
+          history = [];
+          totalInspectedSpan.textContent = totalInspected.toLocaleString('pt-BR');
+          updateHistory();
+          saveData();
         });
       });
     });
